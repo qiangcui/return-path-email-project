@@ -1,0 +1,23 @@
+version: "2"
+services:
+  email-client:
+    build:
+      context: ./client
+    ports:
+      - 3000:3000
+    environment:
+      EMAIL_SERVER_URL: email-server
+    links:
+      - email-server
+    networks:
+      - backend
+  email-server:
+    build:
+      context: ./server
+    ports:
+      - 1234:1234
+    networks:
+      - backend
+networks:
+  backend:
+    driver: 'bridge'
